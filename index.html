@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sjc Gallery</title>
+    <style>
+        /* Existing styles... */
+        main > div {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        main > div > a {
+            flex: 1 1 220px;
+            min-width: 180px;
+            max-width: 100%;
+            margin: 8px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-radius: 12px;
+        }
+        main > div > a:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+            z-index: 2;
+        }
+        main > div > a > div {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1/1.2;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.726);
+            background: linear-gradient(135deg, #ffffff02 60%, #adadad00 100%);
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s, background 0.3s;
+        }
+        main > div > a > div img {
+            width: 100%;
+            height: -webkit-fill-available;
+            display: block;
+            transition: transform 0.3s, filter 0.3s;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+            border-radius: 10px 10px 0 0;
+        }
+        main > div > a > div:hover img {
+            transform: scale(1.08) rotate(-2deg);
+            filter: brightness(0.7) blur(1px);
+        }
+        main > div > a > div > div {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(0deg, rgba(0,0,0,0.85) 80%, rgba(0,0,0,0.1) 100%);
+            color: #fff;
+            padding: 18px 12px 12px 12px;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(20px);
+            border-radius: 0 0 10px 10px;
+        }
+        main > div > a > div:hover > div {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        main > div > a > div > div h2 {
+            margin: 0 0 6px 0;
+            font-size: 1.2em;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        main > div > a > div > div p {
+            margin: 0;
+            font-size: 0.98em;
+            color: #e0e7ef;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #222;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 2.4em;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            animation: fadeInDown 1s;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        main > div > a:first-child > div {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        main > div > a:last-child > div {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        body {
+            background: url('8.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(255,255,255,0.15);
+            pointer-events: none;
+            z-index: 0;
+        }
+        main {
+            position: relative;
+            z-index: 1;
+        }
+        @media (max-width: 900px) {
+            main > div {
+                flex-wrap: wrap;
+            }
+            main > div > a {
+                flex: 1 1 45%;
+                min-width: 160px;
+            }
+        }
+        @media (max-width: 600px) {
+            main > div {
+                flex-direction: column;
+                align-items: center;
+            }
+            main > div > a {
+                flex: 1 1 100%;
+                min-width: 0;
+                width: 90%;
+                margin: 10px 0;
+            }
+            main > div > a > div {
+                border-radius: 10px;
+            }
+        }
+        .gallery{
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex; 
+            gap: 0;
+            justify-content: center;    
+        }
+        /* New dynamic effects */
+        main > div > a > div::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(0,123,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
+            opacity: 0.7;
+            z-index: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        main > div > a > div:hover::before {
+            opacity: 1;
+            background: linear-gradient(120deg, rgba(0,123,255,0.18) 0%, rgba(255,255,255,0.08) 100%);
+        }
+        main > div > a > div {
+            overflow: hidden;
+        }
+        /* Subtle floating animation */
+        main > div > a {
+            animation: floatCard 3.2s ease-in-out infinite alternate;
+        }
+        main > div > a:nth-child(2) {
+            animation-delay: 1s;
+        }
+        main > div > a:nth-child(3) {
+            animation-delay: 2s;
+        }
+        @keyframes floatCard {
+            0% { transform: translateY(0);}
+            100% { transform: translateY(-8px);}
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Sjc Photo Gallery</h1>
+        <div class="gallery">
+            <a href="Department.html">
+                <div>
+                    <img src="cg.jpg" alt="Department Event">
+                    <div>
+                        <h2>Department Event</h2>
+                        <p>Department Activities</p>
+                    </div>
+                </div>
+            </a>
+            <a href="Competition.html">
+                <div>
+                    <img src="com.jpg" alt="Competition">
+                    <div>
+                        <h2>Competition</h2>
+                        <p>Inter-college Challenge</p>
+                    </div>
+                </div>
+            </a>
+            <a href="Staffs.html">
+                <div>
+                    <img src="staff.png" alt="Staffs">
+                    <div>
+                        <h2>Staffs</h2>
+                        <p>Faculty Appreciation Day</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+</body>
+</html>
